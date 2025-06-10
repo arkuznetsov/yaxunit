@@ -48,6 +48,7 @@ const config = {
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },
+        blog: false,
       }),
     ]
   ],
@@ -122,7 +123,6 @@ const config = {
             position: 'left',
             label: 'Руководство разработчика',
           },          
-          {to: 'blog', label: 'Заметки', position: 'left'},
           {
             href: 'https://github.com/bia-technologies/yaxunit',
             label: 'bia-technologies/yaxunit',
