@@ -39,3 +39,5 @@ documentation/api/
 /tools/**/distr/
 workpath/
 .env
+
+/context/
