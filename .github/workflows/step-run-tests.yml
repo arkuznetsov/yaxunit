@@ -160,17 +160,15 @@ jobs:
         # Запуск ibsrv в фоне
         Start-Process ibsrv.exe -ArgumentList "--db-path=file-db" -WindowStyle Hidden
         Start-Sleep -Seconds 5
-        
         # Проверка, что сервер запустился
         Write-Host "Проверка состояния ibsrv..."
         Get-Process ibsrv -ErrorAction SilentlyContinue | Select-Object ProcessName, Id, CPU
-        
         # Запуск тестов
         Write-Host "Запуск тестов..."
-        $result = Start-Process -NoNewWindow -PassThru -Wait 1cv8c.exe -ArgumentList '/WS "http://localhost:8314" /C"RunUnitTests=yaxunit-config.json" /L ${{ steps.short_locale.outputs.substring }} /VL ${{ inputs.locale }} /DisableStartupDialogs /DisableStartupMessages /DisableUnrecoverableErrorMessage /Out 1cv8c-output.log'
-        
+        $result = Start-Process -NoNewWindow -PassThru -Wait 1cv8c.exe -ArgumentList '/WS "http://localhost:8314" /C"RunUnitTests=yaxunit-config.json" /L ${{ steps.short_locale.outputs.substring }} /VL ${{ inputs.locale }} /DisableStartupDialogs /DisableStartupMessages /DisableUnrecoverableErrorMessage /Out output.log'
         # Проверка результата выполнения
         Write-Host "Код завершения тестов: $($result.ExitCode)"
+        if ($result.ExitCode -ne 0) { exit $result.ExitCode }
       timeout-minutes: 10
 
     - name: Сохранение файла отчета
