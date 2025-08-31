@@ -58,6 +58,13 @@ jobs:
         mkdir -p ~/.1cv8/1C/1cv8/conf/
         echo "DisableUnsafeActionProtection=.*" >>~/.1cv8/1C/1cv8/conf/conf.cfg
   
+    - name: Установка xvfb и зависимостей (Linux)
+      if: runner.os == 'Linux'
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y xvfb x11-utils net-tools libgstreamer-plugins-base1.0-0 gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly
+        sudo ldconfig
+
     - name: Подготовка окружения (Windows)
       if: runner.os == 'Windows'
       run: |
@@ -104,12 +111,6 @@ jobs:
       with:
         name: YAXUNIT
         path: binary/yaxunit.cfe
-
-    - name: Установка xvfb (Linux)
-      if: runner.os == 'Linux'
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y xvfb x11-utils net-tools
 
     - name: Создание файла конфигурации тестирования
       uses: DamianReeves/write-file-action@master
