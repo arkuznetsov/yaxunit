@@ -69,7 +69,7 @@ jobs:
       if: runner.os == 'Windows'
       run: |
         mkdir -p "C:\Program Files\1cv8\conf"
-        "DisableUnsafeActionProtection=.*" | Out-File -FilePath "C:\Program Files\1cv8\conf\conf.cfg" -Encoding utf8 -Append
+        "DisableUnsafeActionProtection=.*" | Out-File -FilePath "C:\Program Files\1cv8\conf\conf.cfg" -Encoding Unicode -Append
   
     - name: Определение "короткой" локали
       id: short_locale
